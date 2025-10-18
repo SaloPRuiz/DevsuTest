@@ -14,6 +14,7 @@ public partial class AppDbContext : DbContext
     {
     }
 
+    public virtual DbSet<Cliente> Clientes { get; set; }
     public virtual DbSet<Persona> Personas { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -22,6 +23,25 @@ public partial class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Cliente>(entity =>
+        {
+            entity.HasKey(e => e.ClienteId).HasName("PK__Cliente__71ABD0875C9C6C14");
+
+            entity.ToTable("Cliente");
+
+            entity.Property(e => e.Contrasena).HasMaxLength(100);
+            entity.Property(e => e.Estado).HasDefaultValueSql("((1))");
+            entity.Property(e => e.FechaCreacion)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
+
+            entity.HasOne(d => d.Persona).WithMany(p => p.Clientes)
+                .HasForeignKey(d => d.PersonaId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Cliente_Persona");
+        });
+
         modelBuilder.Entity<Persona>(entity =>
         {
             entity.HasKey(e => e.PersonaId).HasName("PK__Persona__7C34D3034212BF2B");
