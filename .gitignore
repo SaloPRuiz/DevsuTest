@@ -1,0 +1,29 @@
+﻿# ===============================
+# Global ignores
+# ===============================
+*.DS_Store
+*.user
+*.suo
+*.log
+*.vspscc
+*.vssscc
+
+# ===============================
+# .NET ignores
+# ===============================
+bin/
+obj/
+out/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.dbmdl
+*.dbproj.schemaview
+*.ncrunchsolution
+*.localhistory
+
+# Rider
+.idea/
+.vscode/
+*.userprefs

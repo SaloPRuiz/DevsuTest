@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevsuBackEnd.WebApi", "DevsuBackEnd.WebApi\DevsuBackEnd.WebApi.csproj", "{D022AE35-4A2B-4D24-81D8-CB4B1B5EDAD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevsuBackEnd.Infra", "DevsuBackEnd.Infra\DevsuBackEnd.Infra.csproj", "{60A7704E-F5DF-4316-BEBB-55C797F31B83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevsuBackEnd.Domain", "DevsuBackEnd.Domain\DevsuBackEnd.Domain.csproj", "{38C40BE2-CDB8-4C27-916F-DF22C70869D7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D022AE35-4A2B-4D24-81D8-CB4B1B5EDAD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D022AE35-4A2B-4D24-81D8-CB4B1B5EDAD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D022AE35-4A2B-4D24-81D8-CB4B1B5EDAD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D022AE35-4A2B-4D24-81D8-CB4B1B5EDAD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60A7704E-F5DF-4316-BEBB-55C797F31B83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60A7704E-F5DF-4316-BEBB-55C797F31B83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60A7704E-F5DF-4316-BEBB-55C797F31B83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60A7704E-F5DF-4316-BEBB-55C797F31B83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38C40BE2-CDB8-4C27-916F-DF22C70869D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38C40BE2-CDB8-4C27-916F-DF22C70869D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38C40BE2-CDB8-4C27-916F-DF22C70869D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38C40BE2-CDB8-4C27-916F-DF22C70869D7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
