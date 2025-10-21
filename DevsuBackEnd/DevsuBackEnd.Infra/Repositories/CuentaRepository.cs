@@ -31,14 +31,18 @@ public class CuentaRepository : ICuentaRepository
         var cuentas = await query
             .OrderByDescending(c => c.CuentaId)
             .Include(x => x.TipoCuenta)
+            .Include(cuenta => cuenta.Cliente)
+            .ThenInclude(cliente => cliente.Persona)
             .ToListAsync();
         
         var resultado = cuentas.Select(c => new CuentaModel
         {
             CuentaId = c.CuentaId,
+            ClienteId = c.ClienteId,
+            ClienteNombre = c.Cliente.Persona.Nombre,
             NumeroCuenta = c.NumeroCuenta,
             TipoCuentaId = c.TipoCuentaId,
-            TipoCuenta = c.TipoCuenta.Descripcion ?? string.Empty,
+            TipoCuenta = c.TipoCuenta.Nombre,
             SaldoInicial = c.SaldoInicial,
             Estado = c.Estado,
         });
@@ -84,6 +88,7 @@ public class CuentaRepository : ICuentaRepository
     {
         var cuenta = new Cuenta
         {
+            ClienteId = model.ClienteId,
             NumeroCuenta = model.NumeroCuenta,
             TipoCuentaId = model.TipoCuentaId,
             SaldoInicial = model.SaldoInicial
@@ -104,6 +109,7 @@ public class CuentaRepository : ICuentaRepository
 
         if (entity == null) return null;
 
+        entity.ClienteId = model.ClienteId;
         entity.NumeroCuenta = model.NumeroCuenta;
         entity.TipoCuentaId = model.TipoCuentaId;
         entity.SaldoInicial = model.SaldoInicial;

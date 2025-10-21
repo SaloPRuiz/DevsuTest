@@ -17,13 +17,14 @@
     <button class="new-btn" (click)="openModal('crear')">Nuevo</button>
   </div>
 
-  <table class="cliente-table" *ngIf="items.length > 0; else noData">
+  <table class="table" *ngIf="items.length > 0; else noData">
     <thead>
     <tr>
-      <th>Número</th>
+      <th>Número de cuenta</th>
       <th>Tipo</th>
       <th>Saldo Inicial</th>
       <th>Estado</th>
+      <th>Cliente</th>
       <th>Acciones</th>
     </tr>
     </thead>
@@ -33,6 +34,7 @@
       <td>{{ c.tipoCuenta }}</td>
       <td>{{ c.saldoInicial | currency }}</td>
       <td>{{ c.estado ? 'Activo' : 'Inactivo' }}</td>
+      <td>{{ c.clienteNombre }}</td>
       <td>
         <div class="actions">
           <button (click)="openModal('ver', c)">Ver</button>

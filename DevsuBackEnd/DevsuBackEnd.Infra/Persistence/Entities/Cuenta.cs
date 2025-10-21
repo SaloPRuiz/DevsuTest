@@ -12,6 +12,8 @@ public partial class Cuenta
     public bool? Estado { get; set; }
     public DateTime FechaCreacion { get; set; }
     public DateTime? FechaModificacion { get; set; }
+    public int ClienteId { get; set; }
+    public virtual Cliente Cliente { get; set; } = null!;
     public virtual ICollection<Movimiento> Movimientos { get; set; } = new List<Movimiento>();
     public virtual TipoCuenta TipoCuenta { get; set; } = null!;
 }

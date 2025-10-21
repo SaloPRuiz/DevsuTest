@@ -33,10 +33,10 @@ export class CuentaListComponent extends BaseListComponent<CuentaDto> {
   ) {
     super();
     this.form = this.fb.group({
+      clienteId: [null, Validators.required],
       numeroCuenta: ['', Validators.required],
       tipoCuentaId: [null, Validators.required],
-      saldoInicial: [0, Validators.required],
-      estado: [true]
+      saldoInicial: [0, [Validators.required, Validators.min(1)]]
     });
   }
 
@@ -63,12 +63,10 @@ export class CuentaListComponent extends BaseListComponent<CuentaDto> {
 
   override openModal(mode: 'crear' | 'editar' | 'ver', item?: CuentaDto): void {
     this.mode = mode;
+    if (!this.clientes.length) this.loadClientes();
+    if (!this.tiposCuenta.length) this.loadTiposCuenta();
 
-    if (mode === 'crear') {
-      if (!this.clientes.length) this.loadClientes();
-      if (!this.tiposCuenta.length) this.loadTiposCuenta();
-    }
-
+    this.setModalData(item);
     this.modalVisible = true;
   }
 
@@ -90,17 +88,17 @@ export class CuentaListComponent extends BaseListComponent<CuentaDto> {
 
     console.log(JSON.parse(JSON.stringify(data)));
 
-    //if (this.mode === 'editar' && this.currentId) {
-    //  this.cuentaService.update(this.currentId, data).subscribe(() => {
-    //    this.loadItems();
-    //    this.closeModal();
-    //  });
-    //} else {
-    //  this.cuentaService.create(data).subscribe(() => {
-    //    this.loadItems();
-    //    this.closeModal();
-    //  });
-    //}
+    if (this.mode === 'editar' && this.currentId) {
+      this.cuentaService.update(this.currentId, data).subscribe(() => {
+        this.loadItems();
+        this.closeModal();
+      });
+    } else {
+      this.cuentaService.create(data).subscribe(() => {
+        this.loadItems();
+        this.closeModal();
+      });
+    }
   }
 
   delete(cuentaId: number) {

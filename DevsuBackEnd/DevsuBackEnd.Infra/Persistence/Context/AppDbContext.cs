@@ -69,6 +69,11 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.NumeroCuenta).HasMaxLength(20);
             entity.Property(e => e.SaldoInicial).HasColumnType("decimal(18, 2)");
 
+            entity.HasOne(d => d.Cliente).WithMany(p => p.Cuenta)
+                .HasForeignKey(d => d.ClienteId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Cuenta_Cliente");
+
             entity.HasOne(d => d.TipoCuenta).WithMany(p => p.Cuenta)
                 .HasForeignKey(d => d.TipoCuentaId)
                 .OnDelete(DeleteBehavior.ClientSetNull)

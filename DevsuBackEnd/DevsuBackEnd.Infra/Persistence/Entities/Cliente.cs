@@ -8,5 +8,6 @@ public partial class Cliente
     public DateTime? FechaCreacion { get; set; }
     public DateTime? FechaModificacion { get; set; }
     public bool? Estado { get; set; }
+    public virtual ICollection<Cuenta> Cuenta { get; set; } = new List<Cuenta>();
     public virtual Persona Persona { get; set; } = null!;
 }

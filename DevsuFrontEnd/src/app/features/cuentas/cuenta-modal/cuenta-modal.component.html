@@ -6,29 +6,47 @@
       <div class="form-grid">
         <div class="form-column">
           <div class="form-group">
+            <label>Número *</label>
+            <input formControlName="numeroCuenta" [readonly]="isViewMode" />
+            <small class="error" *ngIf="form.get('numeroCuenta')?.invalid && form.get('numeroCuenta')?.touched">
+              El número de cuenta es obligatorio
+            </small>
+          </div>
+
+          <div class="form-group">
             <label>Cliente *</label>
             <select formControlName="clienteId" [disabled]="isViewMode">
               <option *ngFor="let c of clientes" [value]="c.clienteId">{{ c.nombre }}</option>
             </select>
+            <small class="error" *ngIf="form.get('clienteId')?.invalid && form.get('clienteId')?.touched">
+              Debe seleccionar un cliente
+            </small>
           </div>
 
+        </div>
+        <div class="form-column">
           <div class="form-group">
             <label>Tipo de Cuenta *</label>
             <select formControlName="tipoCuentaId" [disabled]="isViewMode">
               <option *ngFor="let t of tiposCuenta" [value]="t.tipoCuentaId">{{ t.nombre }}</option>
             </select>
+            <small class="error" *ngIf="form.get('tipoCuentaId')?.invalid && form.get('tipoCuentaId')?.touched">
+              Debe seleccionar un tipo de cuenta
+            </small>
           </div>
-        </div>
-        <div class="form-column">
+
           <div class="form-group">
             <label>Saldo Inicial *</label>
             <input type="number" formControlName="saldoInicial" [readonly]="isViewMode" />
+            <small class="error" *ngIf="form.get('saldoInicial')?.invalid && form.get('saldoInicial')?.touched">
+              El saldo inicial debe ser mayor a 0
+            </small>
           </div>
         </div>
       </div>
 
       <div class="modal-actions">
-        <button type="submit" *ngIf="!isViewMode">Guardar</button>
+        <button type="submit" *ngIf="!isViewMode">{{ mode === 'crear' ? 'Guardar' : 'Actualizar' }}</button>
         <button type="button" (click)="close()">Cerrar</button>
       </div>
     </form>
