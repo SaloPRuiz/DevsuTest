@@ -1,5 +1,5 @@
-﻿using DevsuBackEnd.Domain.Models;
-using DevsuBackEnd.Domain.Services;
+﻿using DevsuBackEnd.Domain.Contracts.Services;
+using DevsuBackEnd.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevsuBackEnd.Controllers;
@@ -8,9 +8,9 @@ namespace DevsuBackEnd.Controllers;
 [Route("api/[controller]")]
 public class ClienteController : ControllerBase
 {
-    private readonly ClienteService _clienteService;
+    private readonly IClienteService _clienteService;
 
-    public ClienteController(ClienteService clienteService)
+    public ClienteController(IClienteService clienteService)
     {
         _clienteService = clienteService;
     }

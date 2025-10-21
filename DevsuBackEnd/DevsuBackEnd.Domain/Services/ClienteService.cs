@@ -1,10 +1,11 @@
-﻿using DevsuBackEnd.Domain.Contracts;
+﻿using DevsuBackEnd.Domain.Contracts.Repositories;
+using DevsuBackEnd.Domain.Contracts.Services;
 using DevsuBackEnd.Domain.Exceptions;
 using DevsuBackEnd.Domain.Models;
 
 namespace DevsuBackEnd.Domain.Services;
 
-public class ClienteService
+public class ClienteService : IClienteService
 {
     private readonly IClienteRepository _repository;
 

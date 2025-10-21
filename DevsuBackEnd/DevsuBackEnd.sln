@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevsuBackEnd.Infra", "Devsu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevsuBackEnd.Domain", "DevsuBackEnd.Domain\DevsuBackEnd.Domain.csproj", "{38C40BE2-CDB8-4C27-916F-DF22C70869D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevsuBackEnd.Tests", "DevsuBackEnd.Tests\DevsuBackEnd.Tests.csproj", "{4AAED5F7-5E71-4AE0-AAC7-8E23A73C5E01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{38C40BE2-CDB8-4C27-916F-DF22C70869D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38C40BE2-CDB8-4C27-916F-DF22C70869D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38C40BE2-CDB8-4C27-916F-DF22C70869D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AAED5F7-5E71-4AE0-AAC7-8E23A73C5E01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AAED5F7-5E71-4AE0-AAC7-8E23A73C5E01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AAED5F7-5E71-4AE0-AAC7-8E23A73C5E01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AAED5F7-5E71-4AE0-AAC7-8E23A73C5E01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

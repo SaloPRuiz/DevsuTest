@@ -1,4 +1,5 @@
 ﻿using DevsuBackEnd.Domain.Contracts;
+using DevsuBackEnd.Domain.Contracts.Repositories;
 using DevsuBackEnd.Domain.Models;
 using DevsuBackEnd.Infra.Persistence.Context;
 using DevsuBackEnd.Infra.Persistence.Entities;
