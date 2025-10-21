@@ -21,9 +21,9 @@
     <thead>
     <tr>
       <th>Nombre</th>
-      <th>Identificación</th>
-      <th>Teléfono</th>
       <th>Dirección</th>
+      <th>Teléfono</th>
+      <th>Contraseña</th>
       <th>Estado</th>
       <th>Acciones</th>
     </tr>
@@ -31,9 +31,9 @@
     <tbody>
     <tr *ngFor="let c of clientes">
       <td>{{ c.nombre }}</td>
-      <td>{{ c.identificacion }}</td>
-      <td>{{ c.telefono }}</td>
       <td>{{ c.direccion }}</td>
+      <td>{{ c.telefono }}</td>
+      <td>{{ c.contrasena }}</td>
       <td>{{ c.estado ? 'Activo' : 'Inactivo' }}</td>
       <td>
         <div class="actions">

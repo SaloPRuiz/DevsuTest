@@ -14,12 +14,15 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       if (error.error instanceof ErrorEvent) {
         message = `Error: ${error.error.message}`;
       } else {
+
+        let errorResponse = JSON.stringify(error.error.errors);
+
         switch (error.status) {
           case 0:
-            message = 'No se pudo conectar con el servidor.';
+            message = `No se pudo conectar con el servidor.`;
             break;
           case 400:
-            message = 'Petición incorrecta (400).';
+            message = `Petición incorrecta (400): ${errorResponse}`;
             break;
           case 404:
             message = 'Recurso no encontrado (404).';

@@ -24,7 +24,13 @@ export class ClienteModalComponent {
   }
 
   save() {
-    if (!this.isViewMode) this.onSave.emit();
+    if (this.isViewMode) return;
+
+    this.form.markAllAsTouched();
+
+    if (this.form.valid) {
+      this.onSave.emit();
+    }
   }
 
   close() {

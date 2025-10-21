@@ -18,7 +18,6 @@ public class ClienteRepository : IClienteRepository
     public async Task<IEnumerable<ClienteModel>> GetAllAsync(string? search)
     {
         var query = _context.Clientes
-            .Where(x => x.Estado == true)
             .Include(c => c.Persona)
             .AsQueryable();
         

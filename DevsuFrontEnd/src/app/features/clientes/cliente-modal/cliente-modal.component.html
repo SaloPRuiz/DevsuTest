@@ -8,6 +8,9 @@
           <div class="form-group">
             <label>Nombre *</label>
             <input formControlName="nombre" [readonly]="isViewMode" />
+            <small class="error" *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched">
+              El nombre es obligatorio
+            </small>
           </div>
 
           <div class="form-group">
@@ -26,6 +29,9 @@
           <div class="form-group">
             <label>Identificación *</label>
             <input formControlName="identificacion" [readonly]="isViewMode" />
+            <small class="error" *ngIf="form.get('identificacion')?.invalid && form.get('identificacion')?.touched">
+              La identificación es obligatoria
+            </small>
           </div>
         </div>
 
@@ -43,6 +49,9 @@
           <div class="form-group" *ngIf="!isViewMode">
             <label>Contraseña</label>
             <input type="password" formControlName="contrasena" />
+            <small class="error" *ngIf="form.get('contrasena')?.invalid && form.get('contrasena')?.touched">
+              La contraseña es obligatoria
+            </small>
           </div>
 
           <div class="form-group" *ngIf="isViewMode">

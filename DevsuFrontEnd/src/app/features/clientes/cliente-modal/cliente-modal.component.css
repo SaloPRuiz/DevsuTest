@@ -83,3 +83,13 @@ button[type='submit'] {
 button[type='button'] {
   background-color: #e0e0e0;
 }
+
+input.ng-invalid.ng-touched {
+  border: 1px solid #e74c3c;
+  background-color: #fdf2f2;
+}
+
+small.error {
+  color: #e74c3c;
+  font-size: 12px;
+}
