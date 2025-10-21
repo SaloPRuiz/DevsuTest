@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {environment} from "../../../environments/environment.development";
 import {CuentaDto} from "../models/cuenta";
+import {TipoCuentaDto} from "../models/tipo-cuenta";
 
 @Injectable({ providedIn: 'root' })
 export class CuentaService {
@@ -16,6 +17,10 @@ export class CuentaService {
       : this.baseUrl;
 
     return this.http.get<CuentaDto[]>(url);
+  }
+
+  getTiposCuenta(): Observable<TipoCuentaDto[]> {
+    return this.http.get<TipoCuentaDto[]>(`${this.baseUrl}/tipos-cuenta`);
   }
 
   create(cliente: CuentaDto): Observable<any> {

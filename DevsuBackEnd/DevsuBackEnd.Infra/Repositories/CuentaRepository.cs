@@ -18,6 +18,7 @@ public class CuentaRepository : ICuentaRepository
     public async Task<IEnumerable<CuentaModel>> GetAllAsync(string? search)
     {
         var query = _context.Cuenta
+            .Where(x => x.Estado == true)
             .AsQueryable();
         
         if (!string.IsNullOrWhiteSpace(search))
@@ -62,6 +63,21 @@ public class CuentaRepository : ICuentaRepository
             SaldoInicial = entity.SaldoInicial,
             Estado = entity.Estado,
         };
+    }
+
+    public async Task<IEnumerable<TipoCuentaModel>> GetAllTiposCuenta()
+    {
+        var query = await _context
+            .TipoCuenta
+            .Select(x => new TipoCuentaModel
+            {
+                TipoCuentaId = x.TipoCuentaId,
+                Nombre = x.Nombre,
+                Descripcion = x.Descripcion
+            })
+            .ToListAsync();
+        
+        return query;
     }
 
     public async Task<CuentaModel> AddAsync(CuentaModel model)

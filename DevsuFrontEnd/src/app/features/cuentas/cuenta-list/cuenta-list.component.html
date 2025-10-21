@@ -48,12 +48,13 @@
     <p>No hay cuentas registradas.</p>
   </ng-template>
 
-  <!-- Reutiliza el modal base
   <app-cuenta-modal
     [visible]="modalVisible"
     [form]="form"
     [mode]="mode"
+    [clientes]="clientes"
+    [tiposCuenta]="tiposCuenta"
     (onSave)="save()"
     (onClose)="closeModal()"
-  ></app-cuenta-modal> -->
+  ></app-cuenta-modal>
 </div>

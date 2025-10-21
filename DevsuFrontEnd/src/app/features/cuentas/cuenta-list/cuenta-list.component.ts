@@ -5,6 +5,10 @@ import { CuentaService } from '../../../core/services/cuenta.service';
 import { BaseListComponent } from '../../../shared/base/base-list.component';
 import {CurrencyPipe} from "@angular/common";
 import { CommonModule } from '@angular/common';
+import { ClienteService } from '../../../core/services/cliente.service';
+import {TipoCuentaDto} from "../../../core/models/tipo-cuenta";
+import {ClienteDto} from "../../../core/models/cliente";
+import {CuentaModalComponent} from "../cuenta-modal/cuenta-modal.component";
 
 @Component({
   selector: 'app-cuenta-list',
@@ -12,14 +16,21 @@ import { CommonModule } from '@angular/common';
   imports: [
     CurrencyPipe,
     FormsModule,
-    CommonModule
+    CommonModule,
+    CuentaModalComponent
   ],
   templateUrl: './cuenta-list.component.html',
   styleUrls: ['../../../shared/styles/shared-table.css'],
 })
 export class CuentaListComponent extends BaseListComponent<CuentaDto> {
+  clientes: ClienteDto[] = [];
+  tiposCuenta: TipoCuentaDto[] = [];
 
-  constructor(private cuentaService: CuentaService, private fb: FormBuilder) {
+  constructor(
+    private cuentaService: CuentaService,
+    private fb: FormBuilder,
+    private clienteService: ClienteService,
+  ) {
     super();
     this.form = this.fb.group({
       numeroCuenta: ['', Validators.required],
@@ -34,6 +45,31 @@ export class CuentaListComponent extends BaseListComponent<CuentaDto> {
       next: (data) => this.items = data,
       error: (err) => console.error('Error al cargar cuentas', err)
     });
+  }
+
+  loadClientes(): void {
+    this.clienteService.getAll().subscribe({
+      next: data => this.clientes = data,
+      error: err => console.error('Error al cargar clientes', err)
+    });
+  }
+
+  loadTiposCuenta(): void {
+    this.cuentaService.getTiposCuenta().subscribe({
+      next: data => this.tiposCuenta = data,
+      error: err => console.error('Error al cargar tipos de cuenta', err)
+    });
+  }
+
+  override openModal(mode: 'crear' | 'editar' | 'ver', item?: CuentaDto): void {
+    this.mode = mode;
+
+    if (mode === 'crear') {
+      if (!this.clientes.length) this.loadClientes();
+      if (!this.tiposCuenta.length) this.loadTiposCuenta();
+    }
+
+    this.modalVisible = true;
   }
 
   protected setModalData(item?: CuentaDto): void {
@@ -51,17 +87,20 @@ export class CuentaListComponent extends BaseListComponent<CuentaDto> {
 
   save() {
     const data = this.form.value as CuentaDto;
-    if (this.mode === 'editar' && this.currentId) {
-      this.cuentaService.update(this.currentId, data).subscribe(() => {
-        this.loadItems();
-        this.closeModal();
-      });
-    } else {
-      this.cuentaService.create(data).subscribe(() => {
-        this.loadItems();
-        this.closeModal();
-      });
-    }
+
+    console.log(JSON.parse(JSON.stringify(data)));
+
+    //if (this.mode === 'editar' && this.currentId) {
+    //  this.cuentaService.update(this.currentId, data).subscribe(() => {
+    //    this.loadItems();
+    //    this.closeModal();
+    //  });
+    //} else {
+    //  this.cuentaService.create(data).subscribe(() => {
+    //    this.loadItems();
+    //    this.closeModal();
+    //  });
+    //}
   }
 
   delete(cuentaId: number) {

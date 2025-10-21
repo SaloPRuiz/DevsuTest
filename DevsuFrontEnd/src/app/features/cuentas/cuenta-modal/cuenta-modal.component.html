@@ -1,1 +1,36 @@
-<p>cuenta-modal works!</p>
+<div class="modal-backdrop" *ngIf="visible">
+  <div class="modal">
+    <h3>{{ mode === 'crear' ? 'Nueva Cuenta' : mode === 'editar' ? 'Editar Cuenta' : 'Detalle de Cuenta' }}</h3>
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="form-grid">
+        <div class="form-column">
+          <div class="form-group">
+            <label>Cliente *</label>
+            <select formControlName="clienteId" [disabled]="isViewMode">
+              <option *ngFor="let c of clientes" [value]="c.clienteId">{{ c.nombre }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Tipo de Cuenta *</label>
+            <select formControlName="tipoCuentaId" [disabled]="isViewMode">
+              <option *ngFor="let t of tiposCuenta" [value]="t.tipoCuentaId">{{ t.nombre }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-column">
+          <div class="form-group">
+            <label>Saldo Inicial *</label>
+            <input type="number" formControlName="saldoInicial" [readonly]="isViewMode" />
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="submit" *ngIf="!isViewMode">Guardar</button>
+        <button type="button" (click)="close()">Cerrar</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -32,6 +32,13 @@ public class CuentaController : ControllerBase
         return Ok(request);
     }
     
+    [HttpGet("tipos-cuenta")]
+    public async Task<IActionResult> GetAllTiposCuenta()
+    {
+        var request = await _cuentaService.GetAllTiposCuenta();
+        return Ok(request);
+    }
+    
     [HttpPost]
     public async Task<IActionResult> CreateCuenta([FromBody] CuentaModel cliente)
     {

@@ -24,6 +24,11 @@ public class CuentaService : ICuentaService
         return await _repository.GetByIdAsync(id);
     }
 
+    public async Task<IEnumerable<TipoCuentaModel>> GetAllTiposCuenta()
+    {
+        return await _repository.GetAllTiposCuenta();
+    }
+
     public async Task<CuentaModel> AddAsync(CuentaModel model)
     {
         if (string.IsNullOrWhiteSpace(model.NumeroCuenta))

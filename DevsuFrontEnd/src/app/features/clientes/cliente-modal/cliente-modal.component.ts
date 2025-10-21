@@ -1,39 +1,16 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormGroup } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ClienteDto } from '../../../core/models/cliente';
+import {BaseModalComponent} from "../../../shared/base/base-modal.component";
 
 @Component({
   selector: 'app-cliente-modal',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './cliente-modal.component.html',
-  styleUrls: ['./cliente-modal.component.css']
+  styleUrls: ['../../../shared/styles/shared-modal.css']
 })
-export class ClienteModalComponent {
-  @Input() visible = false;
-  @Input() form!: FormGroup;
-  @Input() mode: 'crear' | 'editar' | 'ver' = 'crear';
+export class ClienteModalComponent extends BaseModalComponent {
   @Input() cliente?: ClienteDto;
-
-  @Output() onSave = new EventEmitter<void>();
-  @Output() onClose = new EventEmitter<void>();
-
-  get isViewMode(): boolean {
-    return this.mode === 'ver';
-  }
-
-  save() {
-    if (this.isViewMode) return;
-
-    this.form.markAllAsTouched();
-
-    if (this.form.valid) {
-      this.onSave.emit();
-    }
-  }
-
-  close() {
-    this.onClose.emit();
-  }
 }
