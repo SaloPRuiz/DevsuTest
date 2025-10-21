@@ -33,7 +33,7 @@ public class ClienteController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<IActionResult> CreateNewClient([FromBody] ClienteModel cliente)
+    public async Task<IActionResult> CreateClient([FromBody] ClienteModel cliente)
     {
         var request = await _clienteService.AddAsync(cliente);
         return Ok(request);

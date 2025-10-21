@@ -64,6 +64,22 @@ public class ClienteControllerTests
         result.Should().BeOfType<NotFoundObjectResult>();
     }
     
+    // POST /api/cliente
+    [Fact]
+    public async Task CreateNewClient_ShouldReturnOk_WhenClientIsCreated()
+    {
+        var newClient = new ClienteModel { Nombre = "Laura", Identificacion = "999999" };
+        var createdClient = new ClienteModel { ClienteId = 5, Nombre = "Laura", Identificacion = "999999" };
+
+        _mockService.Setup(s => s.AddAsync(newClient)).ReturnsAsync(createdClient);
+        
+        var result = await _controller.CreateClient(newClient);
+        
+        var okResult = result as OkObjectResult;
+        okResult.Should().NotBeNull();
+        okResult!.Value.Should().BeEquivalentTo(createdClient);
+    }
+    
     // PUT /api/cliente/{id}
     [Fact]
     public async Task UpdateClient_ShouldReturnOk_WhenClientIsUpdated()

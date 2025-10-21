@@ -1,8 +1,8 @@
 ﻿using DevsuBackEnd.Domain.Models;
 
-namespace DevsuBackEnd.Domain.Contracts.Repositories;
+namespace DevsuBackEnd.Domain.Contracts.Services;
 
-public interface ICuentaRepository
+public interface ICuentaService
 {
     Task<IEnumerable<CuentaModel>> GetAllAsync(string? search);
     Task<CuentaModel?> GetByIdAsync(int id);

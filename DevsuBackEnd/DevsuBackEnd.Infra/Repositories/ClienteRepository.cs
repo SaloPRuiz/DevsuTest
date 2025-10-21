@@ -53,24 +53,24 @@ public class ClienteRepository : IClienteRepository
 
     public async Task<ClienteModel?> GetByIdAsync(int id)
     {
-        var cliente = await _context.Clientes
+        var entity = await _context.Clientes
             .Include(x => x.Persona)
             .FirstOrDefaultAsync(x => x.ClienteId == id);
 
-        if (cliente == null) return null;
+        if (entity == null) return null;
 
         return new ClienteModel
         {
-            ClienteId = cliente.ClienteId,
-            PersonaId = cliente.PersonaId,
-            Nombre = cliente.Persona.Nombre,
-            Genero = cliente.Persona.Genero,
-            Edad = cliente.Persona.Edad,
-            Identificacion = cliente.Persona.Identificacion,
-            Direccion = cliente.Persona.Direccion,
-            Telefono = cliente.Persona.Telefono,
-            Contrasena = cliente.Contrasena,
-            Estado = cliente.Estado
+            ClienteId = entity.ClienteId,
+            PersonaId = entity.PersonaId,
+            Nombre = entity.Persona.Nombre,
+            Genero = entity.Persona.Genero,
+            Edad = entity.Persona.Edad,
+            Identificacion = entity.Persona.Identificacion,
+            Direccion = entity.Persona.Direccion,
+            Telefono = entity.Persona.Telefono,
+            Contrasena = entity.Contrasena,
+            Estado = entity.Estado
         };
     }
 
