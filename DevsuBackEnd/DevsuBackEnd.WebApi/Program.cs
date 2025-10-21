@@ -13,6 +13,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<ICuentaService, CuentaService>();
+builder.Services.AddScoped<ICuentaRepository, CuentaRepository>();
+builder.Services.AddScoped<IMovimientoService, MovimientoService>();
+builder.Services.AddScoped<IMovimientoRepository, MovimientoRepository>();
 
 builder.Services.AddCors(options =>
 {

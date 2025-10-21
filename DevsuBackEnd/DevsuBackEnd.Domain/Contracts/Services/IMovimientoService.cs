@@ -1,8 +1,8 @@
 ﻿using DevsuBackEnd.Domain.Models;
 
-namespace DevsuBackEnd.Domain.Contracts.Repositories;
+namespace DevsuBackEnd.Domain.Contracts.Services;
 
-public interface IMovimientoRepository
+public interface IMovimientoService
 {
     Task<IEnumerable<MovimientoModel>> GetAllAsync(string? search);
     Task<MovimientoModel?> GetByIdAsync(int id);
