@@ -16,16 +16,43 @@ public class ClienteController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<ActionResult> GetAllAsync()
+    public async Task<IActionResult> GetAllClients()
     {
-        var clientes = await _clienteService.GetAllAsync();
-        return Ok(clientes);
+        var request = await _clienteService.GetAllAsync();
+        return Ok(request);
+    }
+    
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetClientById(int id)
+    {
+        var request = await _clienteService.GetByIdAsync(id);
+        if (request == null)
+            return NotFound(new { message = $"No se encontró el cliente con ID {id}." });
+
+        return Ok(request);
     }
     
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] ClienteModel cliente)
+    public async Task<IActionResult> CreateNewClient([FromBody] ClienteModel cliente)
     {
-        var clienteNuevo = await _clienteService.AddAsync(cliente);
-        return Ok(clienteNuevo);
+        var request = await _clienteService.AddAsync(cliente);
+        return Ok(request);
+    }
+    
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> UpdateClient([FromRoute] int id,  [FromBody] ClienteModel cliente)
+    {
+        var command = await _clienteService.UpdateAsync(id, cliente);
+        return Ok(command);
+    }
+    
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteClient(int id)
+    {
+        var command = await _clienteService.DeleteAsync(id);
+        if (!command)
+            return NotFound(new { message = $"No se encontró el cliente con ID {id}." });
+
+        return NoContent();
     }
 }

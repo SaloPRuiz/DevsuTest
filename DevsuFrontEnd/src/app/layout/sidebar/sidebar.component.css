@@ -1,0 +1,25 @@
+.sidebar {
+  padding: 1rem;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  margin-bottom: 0.8rem;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.sidebar a.active {
+  color: #1e88e5;
+  border-left: 3px solid #1e88e5;
+  padding-left: 0.5rem;
+}

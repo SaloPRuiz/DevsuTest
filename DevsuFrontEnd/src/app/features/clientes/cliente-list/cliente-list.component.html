@@ -1,0 +1,47 @@
+<div class="cliente-container">
+  <div class="header">
+    <h2>Clientes</h2>
+    <button (click)="openModal('crear')">Nuevo</button>
+  </div>
+
+  <table class="cliente-table" *ngIf="clientes.length > 0; else noData">
+    <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Identificación</th>
+      <th>Teléfono</th>
+      <th>Dirección</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let c of clientes">
+      <td>{{ c.nombre }}</td>
+      <td>{{ c.identificacion }}</td>
+      <td>{{ c.telefono }}</td>
+      <td>{{ c.direccion }}</td>
+      <td>{{ c.estado ? 'Activo' : 'Inactivo' }}</td>
+      <td>
+        <div class="actions">
+          <button (click)="openModal('ver', c)">Ver</button>
+          <button (click)="openModal('editar', c)">Editar</button>
+          <button (click)="delete(c.clienteId!)">Eliminar</button>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noData>
+    <p>No hay clientes registrados.</p>
+  </ng-template>
+
+  <app-cliente-modal
+    [visible]="modalVisible"
+    [form]="form"
+    [mode]="mode"
+    (onSave)="save()"
+    (onClose)="closeModal()"
+  ></app-cliente-modal>
+</div>

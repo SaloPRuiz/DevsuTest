@@ -1,0 +1,61 @@
+<div class="modal-backdrop" *ngIf="visible">
+  <div class="modal">
+    <h3>{{ mode === 'crear' ? 'Nuevo Cliente' : mode === 'editar' ? 'Editar Cliente' : 'Detalle de Cliente' }}</h3>
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="form-grid">
+        <div class="form-column">
+          <div class="form-group">
+            <label>Nombre *</label>
+            <input formControlName="nombre" [readonly]="isViewMode" />
+          </div>
+
+          <div class="form-group">
+            <label>Género</label>
+            <select formControlName="genero" [disabled]="isViewMode">
+              <option [ngValue]="true">Masculino</option>
+              <option [ngValue]="false">Femenino</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Edad</label>
+            <input type="number" formControlName="edad" [readonly]="isViewMode" />
+          </div>
+
+          <div class="form-group">
+            <label>Identificación *</label>
+            <input formControlName="identificacion" [readonly]="isViewMode" />
+          </div>
+        </div>
+
+        <div class="form-column">
+          <div class="form-group">
+            <label>Dirección</label>
+            <input formControlName="direccion" [readonly]="isViewMode" />
+          </div>
+
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input formControlName="telefono" [readonly]="isViewMode" />
+          </div>
+
+          <div class="form-group" *ngIf="!isViewMode">
+            <label>Contraseña</label>
+            <input type="password" formControlName="contrasena" />
+          </div>
+
+          <div class="form-group" *ngIf="isViewMode">
+            <label>Estado</label>
+            <input [value]="cliente?.estado ? 'Activo' : 'Inactivo'" readonly />
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="submit" *ngIf="!isViewMode">{{ mode === 'crear' ? 'Guardar' : 'Actualizar' }}</button>
+        <button type="button" (click)="close()">Cerrar</button>
+      </div>
+    </form>
+  </div>
+</div>
