@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import {LayoutComponent} from "./layout/layout.component";
 import {ClienteListComponent} from "./features/clientes/cliente-list/cliente-list.component";
+import {CuentaListComponent} from "./features/cuentas/cuenta-list/cuenta-list.component";
 
 export const routes: Routes = [
   {
@@ -8,6 +9,7 @@ export const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'clientes', component: ClienteListComponent },
+      { path: 'cuentas', component: CuentaListComponent },
       { path: '', redirectTo: 'clientes', pathMatch: 'full' }
     ]
   }

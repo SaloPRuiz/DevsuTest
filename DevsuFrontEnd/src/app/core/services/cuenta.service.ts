@@ -1,32 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ClienteDto } from '../models/cliente';
 import {environment} from "../../../environments/environment.development";
+import {CuentaDto} from "../models/cuenta";
 
 @Injectable({ providedIn: 'root' })
-export class ClienteService {
-  private baseUrl = `${environment.apiUrl}/Cliente`;
+export class CuentaService {
+  private baseUrl = `${environment.apiUrl}/Cuenta`;
 
   constructor(private http: HttpClient) {}
 
-  getAll(search?: string): Observable<ClienteDto[]> {
+  getAll(search?: string): Observable<CuentaDto[]> {
     const url = search
       ? `${this.baseUrl}?search=${encodeURIComponent(search)}`
       : this.baseUrl;
 
-    return this.http.get<ClienteDto[]>(url);
+    return this.http.get<CuentaDto[]>(url);
   }
 
-  getById(id: number): Observable<ClienteDto> {
-    return this.http.get<ClienteDto>(`${this.baseUrl}/${id}`);
-  }
-
-  create(cliente: ClienteDto): Observable<any> {
+  create(cliente: CuentaDto): Observable<any> {
     return this.http.post(this.baseUrl, cliente);
   }
 
-  update(id: number, cliente: ClienteDto): Observable<any> {
+  update(id: number, cliente: CuentaDto): Observable<any> {
     return this.http.put(`${this.baseUrl}/${id}`, cliente);
   }
 

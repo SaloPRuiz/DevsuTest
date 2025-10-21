@@ -1,28 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClienteService } from '../../../core/services/cliente.service';
 import { ClienteDto } from '../../../core/models/cliente';
-import {ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule} from '@angular/forms';
+import {ReactiveFormsModule, FormBuilder, Validators, FormsModule} from '@angular/forms';
 import { ClienteModalComponent} from "../cliente-modal/cliente-modal.component";
-import {debounceTime, Subject} from "rxjs";
+import {BaseListComponent} from "../../../shared/base/base-list.component";
 
 @Component({
   selector: 'app-cliente-list',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, ClienteModalComponent, FormsModule],
   templateUrl: './cliente-list.component.html',
-  styleUrls: ['./cliente-list.component.css']
+  styleUrls: ['../../../shared/styles/shared-table.css'],
 })
-export class ClienteListComponent implements OnInit {
-  clientes: ClienteDto[] = [];
-  form: FormGroup;
-  modalVisible = false;
-  mode: 'crear' | 'editar' | 'ver' = 'crear';
-  currentId?: number;
-  searchValue: string = '';
-  private searchSubject = new Subject<string>();
+export class ClienteListComponent extends BaseListComponent<ClienteDto> {
 
   constructor(private clienteService: ClienteService, private fb: FormBuilder) {
+    super();
     this.form = this.fb.group({
       nombre: ['', Validators.required],
       genero: [false],
@@ -34,38 +28,18 @@ export class ClienteListComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.loadClientes();
-
-    this.searchSubject.pipe(debounceTime(500)).subscribe(value => {
-      this.loadClientes(value.trim());
-    });
-  }
-
-  loadClientes(search?: string) {
+  loadItems(search?: string) {
     this.clienteService.getAll(search).subscribe({
-      next: (data) => this.clientes = data,
+      next: (data) => this.items = data,
       error: (err) => console.error('Error al cargar clientes', err)
     });
   }
 
-  onSearchChange(value: string) {
-    this.searchSubject.next(value);
-  }
-
-  clearSearch() {
-    this.searchValue = '';
-    this.loadClientes();
-  }
-
-  openModal(mode: 'crear' | 'editar' | 'ver', cliente?: ClienteDto) {
-    this.mode = mode;
-    this.modalVisible = true;
-
-    if (cliente) {
-      this.currentId = cliente.clienteId;
-      this.form.patchValue(cliente);
-      if (mode === 'ver') this.form.disable();
+  protected setModalData(item?: ClienteDto) {
+    if (item) {
+      this.currentId = item.clienteId;
+      this.form.patchValue(item);
+      if (this.mode === 'ver') this.form.disable();
       else this.form.enable();
     } else {
       this.currentId = undefined;
@@ -79,12 +53,12 @@ export class ClienteListComponent implements OnInit {
 
     if (this.mode === 'editar' && this.currentId) {
       this.clienteService.update(this.currentId, data).subscribe(() => {
-        this.loadClientes();
+        this.loadItems();
         this.closeModal();
       });
     } else {
       this.clienteService.create(data).subscribe(() => {
-        this.loadClientes();
+        this.loadItems();
         this.closeModal();
       });
     }
@@ -92,12 +66,7 @@ export class ClienteListComponent implements OnInit {
 
   delete(clienteId: number) {
     if (confirm('¿Eliminar este cliente?')) {
-      this.clienteService.delete(clienteId).subscribe(() => this.loadClientes());
+      this.clienteService.delete(clienteId).subscribe(() => this.loadItems());
     }
-  }
-
-  closeModal() {
-    this.modalVisible = false;
-    this.form.reset();
   }
 }
