@@ -10,8 +10,16 @@ export class ClienteService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<ClienteDto[]> {
-    return this.http.get<ClienteDto[]>(this.baseUrl);
+  getAll(search?: string): Observable<ClienteDto[]> {
+    const url = search
+      ? `${this.baseUrl}?search=${encodeURIComponent(search)}`
+      : this.baseUrl;
+
+    return this.http.get<ClienteDto[]>(url);
+  }
+
+  search(query: string): Observable<ClienteDto[]> {
+    return this.http.get<ClienteDto[]>(`${this.baseUrl}/buscar?query=${query}`);
   }
 
   getById(id: number): Observable<ClienteDto> {

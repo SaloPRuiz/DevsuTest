@@ -16,9 +16,9 @@ public class ClienteController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<IActionResult> GetAllClients()
+    public async Task<IActionResult> GetAllClients([FromQuery] string? search)
     {
-        var request = await _clienteService.GetAllAsync();
+        var request = await _clienteService.GetAllAsync(search);
         return Ok(request);
     }
     

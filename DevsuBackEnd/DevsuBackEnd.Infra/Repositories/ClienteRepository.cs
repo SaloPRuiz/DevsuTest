@@ -15,11 +15,23 @@ public class ClienteRepository : IClienteRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<ClienteModel>> GetAllAsync()
+    public async Task<IEnumerable<ClienteModel>> GetAllAsync(string? search)
     {
-        var clientes = await _context.Clientes
-            .Where(x => x.Estado == true)    
+        var query = _context.Clientes
+            .Where(x => x.Estado == true)
             .Include(c => c.Persona)
+            .AsQueryable();
+        
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            query = query.Where(c =>
+                c.Persona.Nombre.Contains(search) ||
+                c.Persona.Identificacion.Contains(search) ||
+                (c.Persona.Telefono != null && c.Persona.Telefono.Contains(search)));
+        }
+        
+        var clientes = await query
+            .OrderByDescending(c => c.ClienteId)
             .ToListAsync();
         
         var resultado = clientes.Select(c => new ClienteModel
@@ -91,11 +103,6 @@ public class ClienteRepository : IClienteRepository
         model.PersonaId = persona.PersonaId;
 
         return model;
-    }
-
-    public async Task<bool> ExisteIdentificacionAsync(string identificacion)
-    {
-        return await _context.Personas.AnyAsync(p => p.Identificacion == identificacion);
     }
 
     public async Task<ClienteModel?> UpdateAsync(int id, ClienteModel model)

@@ -13,9 +13,9 @@ public class ClienteService
         _repository = repository;
     }
 
-    public async Task<IEnumerable<ClienteModel>> GetAllAsync()
+    public async Task<IEnumerable<ClienteModel>> GetAllAsync(string? search)
     {
-        return await _repository.GetAllAsync();
+        return await _repository.GetAllAsync(search);
     }
     
     public async Task<ClienteModel?> GetByIdAsync(int id)
@@ -33,10 +33,6 @@ public class ClienteService
 
         if (string.IsNullOrWhiteSpace(cliente.Contrasena))
             throw new ValidationException("La contraseña es obligatoria.");
-        
-        var existe = await _repository.ExisteIdentificacionAsync(cliente.Identificacion);
-        if (existe)
-            throw new ValidationException("Ya existe un cliente con esa identificación.");
         
         return await _repository.AddAsync(cliente);
     }
