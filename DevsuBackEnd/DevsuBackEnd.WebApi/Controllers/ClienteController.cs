@@ -23,7 +23,7 @@ public class ClienteController : ControllerBase
     }
     
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetClientById(int id)
+    public async Task<IActionResult> GetClientById([FromRoute] int id)
     {
         var request = await _clienteService.GetByIdAsync(id);
         if (request == null)

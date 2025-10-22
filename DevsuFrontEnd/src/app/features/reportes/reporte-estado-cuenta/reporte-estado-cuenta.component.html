@@ -1,0 +1,61 @@
+<div class="cliente-container">
+  <div class="header">
+    <h2>Reporte Estado de Cuenta</h2>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="buscar()" class="toolbar">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Cliente *</label>
+        <select formControlName="clienteId">
+          <option value="" disabled>Seleccione cliente</option>
+          <option *ngFor="let c of clientes" [value]="c.clienteId">{{ c.nombre }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Fecha Inicio *</label>
+        <input type="date" formControlName="fechaInicio" />
+      </div>
+      <div class="form-group">
+        <label>Fecha Fin *</label>
+        <input type="date" formControlName="fechaFin" />
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button type="submit">Buscar</button>
+      <button type="button" (click)="descargarPdf()" [disabled]="reporte.length === 0">Descargar PDF</button>
+    </div>
+  </form>
+
+  <table class="table" *ngIf="reporte.length > 0; else noData">
+    <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Cliente</th>
+      <th>Número de cuenta</th>
+      <th>Tipo</th>
+      <th>Saldo Inicial</th>
+      <th>Estado</th>
+      <th>Movimiento</th>
+      <th>Saldo Disponible</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let r of reporte">
+      <td>{{ r.fecha | date:'yyyy-MM-dd' }}</td>
+      <td>{{ r.cliente }}</td>
+      <td>{{ r.numeroCuenta }}</td>
+      <td>{{ r.tipoCuenta }}</td>
+      <td>{{ r.saldoInicial | currency }}</td>
+      <td>{{ r.estado ? 'Activo' : 'Inactivo' }}</td>
+      <td>{{ r.movimiento | currency }}</td>
+      <td>{{ r.saldoDisponible | currency }}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noData>
+    <p>No hay datos para mostrar.</p>
+  </ng-template>
+</div>
