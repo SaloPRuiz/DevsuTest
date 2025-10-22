@@ -86,8 +86,6 @@ export class CuentaListComponent extends BaseListComponent<CuentaDto> {
   save() {
     const data = this.form.value as CuentaDto;
 
-    console.log(JSON.parse(JSON.stringify(data)));
-
     if (this.mode === 'editar' && this.currentId) {
       this.cuentaService.update(this.currentId, data).subscribe(() => {
         this.loadItems();

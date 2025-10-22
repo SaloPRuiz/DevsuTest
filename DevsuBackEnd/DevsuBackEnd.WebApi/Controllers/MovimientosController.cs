@@ -1,4 +1,5 @@
 ﻿using DevsuBackEnd.Domain.Contracts.Services;
+using DevsuBackEnd.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevsuBackEnd.Controllers;
@@ -7,7 +8,7 @@ namespace DevsuBackEnd.Controllers;
 [Route("api/[controller]")]
 public class MovimientosController : ControllerBase
 {
-    public readonly IMovimientoService _service;
+    private readonly IMovimientoService _service;
 
     public MovimientosController(IMovimientoService service)
     {
@@ -18,6 +19,20 @@ public class MovimientosController : ControllerBase
     public async Task<IActionResult> GetAllMovimientos([FromQuery] string? search)
     {
         var request = await _service.GetAllAsync(search);
+        return Ok(request);
+    }
+    
+    [HttpGet("tipos-movimiento")]
+    public async Task<IActionResult> GetAllTiposMovimiento()
+    {
+        var request = await _service.GetAllTiposMovimiento();
+        return Ok(request);
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> CreateCuenta([FromBody] MovimientoModel model)
+    {
+        var request = await _service.AddAsync(model);
         return Ok(request);
     }
 }

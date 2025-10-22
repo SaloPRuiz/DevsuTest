@@ -1,0 +1,56 @@
+<div class="modal-backdrop" *ngIf="visible">
+  <div class="modal">
+    <h3>
+      {{ mode === 'crear' ? 'Nuevo Movimiento' : mode === 'editar' ? 'Editar Movimiento' : 'Detalle de Movimiento' }}
+    </h3>
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="form-grid">
+        <div class="form-column">
+          <div class="form-group">
+            <label>Fecha del Movimiento *</label>
+            <input type="date" formControlName="fechaMovimiento" [readonly]="isViewMode" />
+            <small class="error" *ngIf="form.get('fechaMovimiento')?.invalid && form.get('fechaMovimiento')?.touched">
+              La fecha es obligatoria
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label>Cuenta *</label>
+            <select formControlName="cuentaId" [disabled]="isViewMode">
+              <option *ngFor="let c of cuentas" [value]="c.cuentaId">{{ c.numeroCuenta }}</option>
+            </select>
+            <small class="error" *ngIf="form.get('cuentaId')?.invalid && form.get('cuentaId')?.touched">
+              Debe seleccionar una cuenta
+            </small>
+          </div>
+        </div>
+
+        <div class="form-column">
+          <div class="form-group">
+            <label>Tipo de Movimiento *</label>
+            <select formControlName="tipoMovimientoId" [disabled]="isViewMode">
+              <option *ngFor="let t of tiposMovimiento" [value]="t.tipoMovimientoId">{{ t.nombre }}</option>
+            </select>
+            <small class="error" *ngIf="form.get('tipoMovimientoId')?.invalid && form.get('tipoMovimientoId')?.touched">
+              Debe seleccionar un tipo de movimiento
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label>Valor *</label>
+            <input type="number" formControlName="valor" [readonly]="isViewMode" min="0.01" />
+            <small class="error" *ngIf="form.get('valor')?.invalid && form.get('valor')?.touched">
+              Debe ingresar un valor válido
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="submit" *ngIf="!isViewMode">{{ mode === 'crear' ? 'Guardar' : 'Actualizar' }}</button>
+        <button type="button" (click)="close()">Cerrar</button>
+      </div>
+    </form>
+  </div>
+</div>

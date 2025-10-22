@@ -1,13 +1,13 @@
 <div>
   <div class="header">
-    <h2>Cuentas</h2>
+    <h2>Movimientos</h2>
   </div>
 
   <div class="toolbar">
     <div class="search-bar">
       <input
         type="text"
-        placeholder="Buscar cuenta..."
+        placeholder="Buscar movimientos..."
         [(ngModel)]="searchValue"
         (ngModelChange)="onSearchChange($event)"
       />
@@ -24,7 +24,7 @@
       <th>Tipo</th>
       <th>Saldo Inicial</th>
       <th>Estado</th>
-      <th>Cliente</th>
+      <th>Movimiento</th>
       <th>Acciones</th>
     </tr>
     </thead>
@@ -34,12 +34,10 @@
       <td>{{ c.tipoCuenta }}</td>
       <td>{{ c.saldoInicial | currency }}</td>
       <td>{{ c.estado ? 'Activo' : 'Inactivo' }}</td>
-      <td>{{ c.clienteNombre }}</td>
+      <td>{{ c.tipoMovimientoId | movimientoDescripcion:c.valor }}</td>
       <td>
         <div class="actions">
           <button (click)="openModal('ver', c)">Ver</button>
-          <button (click)="openModal('editar', c)">Editar</button>
-          <button (click)="delete(c.cuentaId!)">Eliminar</button>
         </div>
       </td>
     </tr>
@@ -47,16 +45,16 @@
   </table>
 
   <ng-template #noData>
-    <p>No hay cuentas registradas.</p>
+    <p>No hay movimientos registrados.</p>
   </ng-template>
 
-  <app-cuenta-modal
+  <app-movimiento-modal
     [visible]="modalVisible"
     [form]="form"
     [mode]="mode"
-    [clientes]="clientes"
-    [tiposCuenta]="tiposCuenta"
+    [cuentas]="cuentas"
+    [tiposMovimiento]="tiposMovimiento"
     (onSave)="save()"
     (onClose)="closeModal()"
-  ></app-cuenta-modal>
+  ></app-movimiento-modal>
 </div>
