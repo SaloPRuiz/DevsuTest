@@ -27,3 +27,7 @@ out/
 .idea/
 .vscode/
 *.userprefs
+
+# Node/Angular
+node_modules/
+dist/
